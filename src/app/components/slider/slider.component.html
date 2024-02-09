@@ -1,5 +1,5 @@
 <div class="slider" *ngIf="movies$ | async as movies">
-    <ng-container *ngFor="let movie of movies.results; let movieindex=index">
+    <ng-container *ngFor="let movie of movies; let movieindex=index">
         <div class="slide" *ngIf="movieindex === currSlide">
             <div class="slide-background">
                 <img [src]="imgbaseUrl + 'w1280' + movie.backdrop_path" [alt]="movie.title">

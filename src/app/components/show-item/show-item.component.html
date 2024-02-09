@@ -7,6 +7,6 @@
         <img [src]="imageBaseurl+'w1280' + showItem.poster_path" [alt]="showItem.title">
     </div>
     <div class="show-item-title">
-        {{showItem.original_title}}
+        {{showItem.original_title || showItem.name}}
     </div>
 </a>

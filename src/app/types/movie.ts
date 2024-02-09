@@ -13,6 +13,7 @@ export interface Movie {
   video: string;
   vote_average: Number;
   vote_count: Number;
+  name?: string;
 }
 export interface MoviesDto {
   page: Number;

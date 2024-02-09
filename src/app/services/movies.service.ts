@@ -10,9 +10,9 @@ export class MoviesService {
   private apiUrl = ApiUrl;
   private apikey = Apikey;
   constructor(private http: HttpClient) {}
-  getPopularMovies() {
+  getDatabyType(type: string) {
     return this.http.get<MoviesDto>(
-      `${this.apiUrl}/movie/popular?api_key=${this.apikey}`
+      `${this.apiUrl}/movie/${type}?api_key=${this.apikey}`
     );
   }
 }

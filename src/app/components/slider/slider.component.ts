@@ -14,7 +14,7 @@ export class SliderComponent implements OnInit {
   check = false;
   currSlide = 0;
   imgbaseUrl = ApiImg;
-  movies$ = this.movieService.getPopularMovies();
+  movies$ = this.movieService.getDatabyType('popular');
   movies = this.movies$.subscribe((movie) => {
     if (movie) {
       this.check = true;

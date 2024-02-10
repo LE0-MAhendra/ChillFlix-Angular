@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { ApiUrl, Apikey } from '../constants/values';
-import { MoviesDto } from '../types/movie';
+import { TvshowsDto } from '../types/tvshow';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class TvshowsService {
   constructor(private http: HttpClient) {}
   getTvShowsbyType(type: string, count = 20) {
     return this.http
-      .get<MoviesDto>(`${this.apiUrl}/tv/${type}?api_key=${this.apikey}`)
+      .get<TvshowsDto>(`${this.apiUrl}/tv/${type}?api_key=${this.apikey}`)
       .pipe(map((data) => data.results.slice(0, count)));
   }
 }

@@ -1,23 +1,30 @@
-export interface Movie {
-  adult: boolean;
+export type Movie = {
+  id: number;
   backdrop_path: string;
-  genre_ids: Number[];
-  id: Number;
+  genre_ids: number[];
   original_language: string;
   original_title: string;
   overview: string;
-  popularity: Number;
+  popularity: number;
   poster_path: string;
   release_date: string;
   title: string;
-  video: string;
-  vote_average: Number;
-  vote_count: Number;
-  name?: string;
-}
-export interface MoviesDto {
-  page: Number;
+  vote_average: number;
+  vote_count: number;
+  revenue?: number;
+  runtime?: string;
+  status?: string;
+  genres?: Genre[];
+};
+
+export type MoviesDto = {
+  page: number;
   results: Movie[];
-  total_pages: Number;
-  total_results: Number;
-}
+  total_pages: number;
+  total_results: number;
+};
+
+export type Genre = {
+  id: string;
+  name: string;
+};

@@ -1,36 +1,34 @@
-@if(movies$ |async; as movies){
-<div class="slider">
-    @for(movie of movies;track movie.id;let movieindex=$index){
-    @if(movieindex===currSlide){
+@if(slides){
 
+<div class="slider">
+    @for(slide of slides;track slide.id;let slideindex=$index){
     <div class="slide">
         <div class="slide-background">
-            <img [src]="imgbaseUrl + 'w1280' + movie.backdrop_path" [alt]="movie.title">
+            <img [src]="imgbaseUrl + 'w1280' + slide.backdrop_path" [alt]="slide.title">
         </div>
         <div class="slide-pane">
-            <h2 class="title">{{ movie.title}}</h2>
+            <h2 class="title">{{ slide.title}}</h2>
             <div class="meta mb-4">
                 <div class="rating mb-1">
                     <i class=" pi pi-star-fill"></i>
-                    <span>{{movie.vote_average}}</span>
+                    <span>{{slide.vote_average}}</span>
                     <span>/10</span>
                 </div>
                 <div class="votes mb-1">
                     <i class="pi pi-users"></i>
-                    <span>{{movie.vote_count}}</span>
+                    <span>{{slide.vote_count}}</span>
                 </div>
                 <div class="release-date">
                     <i class="pi pi-calendar"></i>
-                    <span>{{movie.release_date | date : 'yyyy'}}</span>
+                    <span>{{slide.release_date | date : 'yyyy'}}</span>
                 </div>
 
             </div>
             <div class="description">
-                {{movie.overview}}
+                {{slide.overview}}
             </div>
         </div>
     </div>
-    }
     }
 </div>
 }

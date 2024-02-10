@@ -5,7 +5,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { MovieListComponent } from './pages/movie-list/movie-list.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ShowDetailComponent } from './pages/show-detail/show-detail.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     MovieListComponent,
     HomeComponent,
     HttpClientModule,
+    ShowDetailComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -2,14 +2,23 @@
 @import "../node_modules/modern-normalize/modern-normalize.css";
 @import "../node_modules/primeflex/primeflex.css";
 @import "../node_modules/primeicons/primeicons.css";
+@import "primeng/resources/themes/md-dark-indigo/theme.css";
+@import "primeng/resources/primeng.css";
+
+
 body {
   font-family: "Roboto", "Protest Revolution", "Ubuntu", "sans-serif";
   font-size: 14px;
   color: white;
+  max-width: 1480px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  overflow: auto;
   background-color: #141414;
   a {
     text-decoration: none;
     cursor: pointer;
+    color: white;
   }
   ul {
     list-style: none;

@@ -1,74 +1,87 @@
-<ng-container *ngIf="show$ | async as show">
-    <app-single-slide [slides]="[show]"></app-single-slide>
-    <p-tabView>
-        <p-tabPanel header="Overview">
-            <div class="grid">
-                <div class="cols-3">
-                    <img class="poster" [src]="baseUrl + 'w342'+show.poster_path" alt="">
+@if(show$ | async; as show){
+
+<app-single-slide [slides]="[show]"></app-single-slide>
+<p-tabView>
+    <p-tabPanel header="Overview">
+        <div class="grid">
+            <div class="col-3">
+                <img class="poster" [src]="baseUrl.medium +show.poster_path" alt="">
+            </div>
+            <div class="col-9">
+                <h2>Overview</h2>
+                <p class="overview">{{show.overview}}</p>
+                <div class="stat">
+                    <div class="label">Release Date: </div>
+                    <div class="value">{{show.release_date | date: "dd.MM.yyyy"}}</div>
                 </div>
-                <div class="cols-9">
-                    <h2>Overview</h2>
-                    <p class="overview">{{show.overview}}</p>
-                    <div class="stat">
-                        <div class="label">Release Date: </div>
-                        <div class="value">{{show.release_date | date: "dd.MM.yyyy"}}</div>
-                    </div>
-                    <div class="stat">
-                        <div class="label">Language: </div>
-                        <div class="value">{{show.original_language}}</div>
-                    </div>
-                    <div class="stat">
-                        <div class="label">Revenue: </div>
-                        <div class="value">{{show.revenue | currency}}</div>
-                    </div>
-                    <div class="stat">
-                        <div class="label">Duration: </div>
-                        <div class="value">{{show.runtime}} min</div>
-                    </div>
-                    <div class="stat">
-                        <div class="label">Status: </div>
-                        <div class="value">{{show.status}}</div>
-                    </div>
-                    <div class="stat">
-                        <div class="label">Genres: </div>
-                        <div class="value">
-                            @for(gen of show.genres;track gen.id){
-                            <span>{{gen.name}} {{" "}}</span>
-                            }
-                            <span></span>
-                        </div>
+                <div class="stat">
+                    <div class="label">Language: </div>
+                    <div class="value">{{show.original_language}}</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Revenue: </div>
+                    <div class="value">{{show.revenue | currency}}</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Duration: </div>
+                    <div class="value">{{show.runtime}} min</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Status: </div>
+                    <div class="value">{{show.status}}</div>
+                </div>
+                <div class="stat">
+                    <div class="label">Genres: </div>
+                    <div class="value">
+                        @for(gen of show.genres;track gen.id){
+                        <span>{{gen.name}} {{" "}}</span>
+                        }
+                        <span></span>
                     </div>
                 </div>
             </div>
-        </p-tabPanel>
-        <p-tabPanel header="Videos">
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-                rem
-                aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-                explicabo.
-                Nemo enim
-                ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-                eos
-                qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-            </p>
-        </p-tabPanel>
-        <p-tabPanel header="Photos">
-            <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti
-                atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
-                similique
-                sunt in culpa
-                qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est
-                et
-                expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo
-                minus.
-            </p>
-        </p-tabPanel>
-    </p-tabView>
-</ng-container>
-<p>the movie id is : {{showId}}</p>
-<pre>
-        {{show$ | async | json}}
-    </pre>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Videos">
+        @if(showVideos$|async; as showVideos){
+        <div class="grid">
+            @for(video of showVideos;track video.key){
+            <div class="col-4">
+                <app-video-embeded [key]="video.key"></app-video-embeded>
+            </div>
+            }
+        </div>
+        }
+    </p-tabPanel>
+    <p-tabPanel header="Photos">
+        @if(showImages$| async; as showImages){
+        <div class="grid">
+            @for(showImage of showImages;track showImage.file_path){
+
+            <div class="col-2">
+                <p-image [src]="baseUrl.medium + showImage.file_path" [alt]="show.title" width="250"></p-image>
+                <!-- <p-image [src]="baseUrl.large + showImage.file_path" [alt]="show.title" width="250"
+                    [preview]="true"></p-image> -->
+            </div>
+            }
+        </div>
+        }
+    </p-tabPanel>
+</p-tabView>
+@if(showCredits$ | async; as actors){
+<p-carousel [value]="actors" [numVisible]="3" [numScroll]="3" [circular]="true">
+    <ng-template let-actor pTemplate="item">
+        <div class="actor">
+            @if(actor.profile_path){
+            <img [src]="baseUrl.medium + actor.profile_path" alt="">
+            }@else {
+            <img src="https://img.freepik.com/free-vector/isolated-young-handsome-man-set-different-poses-white-background-illustration_632498-649.jpg?w=740&t=st=1707724979~exp=1707725579~hmac=af4a961a8402e3815ec74064b7f305c5f4413347126862225287e3b0d83aed23"
+                alt="">
+            }
+            <div>{{actor.character}}</div>
+            <div>{{actor.name}}</div>
+        </div>
+    </ng-template>
+</p-carousel>
+}
+}

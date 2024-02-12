@@ -3,6 +3,7 @@ import { Movie } from '../../types/movie';
 import { CommonModule } from '@angular/common';
 import { ApiImg } from '../../constants/values';
 import { RouterLink } from '@angular/router';
+import { Tvshow } from '../../types/tvshow';
 
 @Component({
   selector: 'app-show-item',
@@ -13,5 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ShowItemComponent {
   @Input() showItem: Movie | null = null;
+  @Input() TvItem: Tvshow | null = null;
+  @Input() showType: 'tv' | 'movie' = 'movie';
   imageBaseurl = ApiImg;
 }

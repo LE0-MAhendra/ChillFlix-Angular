@@ -1,8 +1,12 @@
-<div class="banner container" *ngIf="shows">
+@if(shows){
+<div class="banner container">
     <h1>{{title}}</h1>
     <div class="grid cards">
-        <div class="cols-2" *ngFor="let movie of shows">
-            <app-show-item [showItem]=" movie"></app-show-item>
+        @for(movie of shows;track movie.id){
+        <div class="cols-2">
+            <app-show-item [showItem]=" movie" [showType]="showsType"></app-show-item>
         </div>
+        }
     </div>
 </div>
+}

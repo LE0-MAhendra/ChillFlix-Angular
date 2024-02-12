@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MoviesService } from '../../services/movies.service';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Movie } from '../../types/movie';
 import { SingleSlideComponent } from '../../components/single-slide/single-slide.component';
 import { TabViewModule } from 'primeng/tabview';
@@ -13,6 +13,8 @@ import { Image } from '../../types/image';
 import { ImageModule } from 'primeng/image';
 import { Actor, CreditsDto } from '../../types/credits';
 import { CarouselModule } from 'primeng/carousel';
+import { TvshowsService } from '../../services/tvshows.service';
+import { mapToMovie, mapToMovies } from '../../types/tvshow';
 @Component({
   selector: 'app-show-detail',
   standalone: true,
@@ -28,7 +30,8 @@ import { CarouselModule } from 'primeng/carousel';
   styleUrl: './show-detail.component.scss',
 })
 export class ShowDetailComponent implements OnInit {
-  showId = 0;
+  showId = '';
+  showType: 'tv' | 'movie' = 'movie';
   baseUrl = IMAGES_SIZES;
   show$: Observable<Movie> | null = null;
   showVideos$: Observable<Video[]> | null = null;
@@ -36,11 +39,13 @@ export class ShowDetailComponent implements OnInit {
   showCredits$: Observable<Actor[]> | null = null;
   constructor(
     private router: ActivatedRoute,
-    private movieService: MoviesService
+    private movieService: MoviesService,
+    private tvService: TvshowsService
   ) {}
   ngOnInit() {
-    this.router.params.subscribe((params) => {
-      this.showId = params['id'];
+    this.showId = this.router.snapshot.params['id'];
+    this.showType = this.router.snapshot.params['type'];
+    if (this.showType === 'movie') {
       this.show$ = this.movieService.getMovieById(String(this.showId));
       this.showVideos$ = this.movieService.getMovieVideosById(
         String(this.showId)
@@ -51,6 +56,14 @@ export class ShowDetailComponent implements OnInit {
       this.showCredits$ = this.movieService.getMovieCreditsById(
         String(this.showId)
       );
-    });
+    }
+    if (this.showType === 'tv') {
+      this.show$ = this.tvService
+        .getTvShowById(this.showId)
+        .pipe(map(mapToMovie));
+      this.showVideos$ = this.tvService.getTvShowVideos(this.showId);
+      this.showImages$ = this.tvService.getTvShowImages(this.showId);
+      this.showCredits$ = this.tvService.getTvShowCast(this.showId);
+    }
   }
 }

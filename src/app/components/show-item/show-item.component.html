@@ -1,7 +1,8 @@
-<a class="show-item" *ngIf="showItem" [routerLink]="'detail/' + showItem.id">
+@if(showItem){
+<a class="show-item" [routerLink]="'detail/' + showItem.id + '/' + showType">
     <div class="show-item-rating">
         <i class="pi pi-star"></i>
-        <span>{{showItem.vote_average}} / 10</span>
+        <span>{{showItem.vote_average | number : '1.1-1'}} / 10</span>
     </div>
     <div class="show-item-image">
         <img [src]="imageBaseurl+'w1280' + showItem.poster_path" [alt]="showItem.title">
@@ -10,3 +11,18 @@
         {{showItem.original_title}}
     </div>
 </a>
+}
+@if(TvItem){
+<a class="show-item" [routerLink]="'detail/' + TvItem.id + '/' + showType">
+    <div class="show-item-rating">
+        <i class="pi pi-star"></i>
+        <span>{{TvItem.vote_average | number : '1.1-1'}} / 10</span>
+    </div>
+    <div class="show-item-image">
+        <img [src]="imageBaseurl+'w1280' + TvItem.poster_path" [alt]="TvItem.name">
+    </div>
+    <div class="show-item-title">
+        {{TvItem.original_name}}
+    </div>
+</a>
+}

@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="grid">
+        <div class="col-12 genres-links">
+            @if(genres$ | async; as gen){
+            @for(genre of gen.genres;track genre.id){
+            <a role="button" aria-hidden="true" [routerLink]="'/genres/' + genre.id">
+                {{genre.name}}
+            </a>
+            }
+            }
+        </div>
+    </div>
+    @if(shows$ | async ;as showLists){
+    <div class="grid">
+        @for(show of showLists;track show.id){
+        <div class="col-2">
+            <app-show-item [showItem]="show"></app-show-item>
+        </div>
+        }
+    </div>
+    }
+</div>

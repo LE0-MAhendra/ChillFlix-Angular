@@ -31,6 +31,6 @@ export class SliderComponent implements OnInit {
       this.ngZone.run(() => {
         this.currSlide = (this.currSlide + 1) % 10;
       });
-    }, 3000);
+    }, 5000);
   }
 }
